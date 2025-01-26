@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruffle</title>
+    <style>
+        body {
+            background-color: black;
+        }
+        #player {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const swfPath = params.get('swf');
+
+        console.log(swfPath);
+
+        window.RufflePlayer = window.RufflePlayer || {};
+
+        window.RufflePlayer.config = {
+            autoplay: "on",
+            unmuteOverlay: "hidden"
+        };
+
+        window.addEventListener("DOMContentLoaded", () => {
+        let ruffle = window.RufflePlayer.newest();
+           let player = ruffle.createPlayer();
+           let container = document.getElementById("container");
+           player.setAttribute("id", "player")
+           container.appendChild(player);
+           player.ruffle().load(swfPath);
+        });
+    </script>
+    <script src="ruffle.js"></script>
+</body>
+</html>
